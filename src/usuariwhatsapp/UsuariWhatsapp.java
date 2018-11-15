@@ -16,26 +16,19 @@ public class UsuariWhatsapp extends Thread {
 
     private boolean salutacionHecha;
     private Whatsapp whats;
-    private int numeroUsuario;
-    private boolean despedida;
 
     @Override
     public void run() {
-        while (despedida == false) {
-            try {
-                Thread.sleep(1000);
-                System.out.println("Hola a todos soy " + this.getName());
-                this.salutacionHecha=true;
-                this.wait();
-            } catch (InterruptedException ex) {
-                Logger.getLogger(UsuariWhatsapp.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        whats.saludar(this.getName());
+        whats.preguntarCena(this.getName());
+        whats.responderCena(this.getName());
+        if (whats.isRespuestaLugar()) {
+            whats.despedirse(this.getName());
         }
     }
 
     public UsuariWhatsapp(Whatsapp whats, int numero) {
         this.salutacionHecha = false;
-        this.despedida = false;
         this.whats = whats;
         this.setName(numero + "");
     }
